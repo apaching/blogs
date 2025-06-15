@@ -20,7 +20,6 @@ export default function Pagination({ totalPages }: Props) {
 
   return (
     <div className="mt-8 flex items-center justify-center gap-2 text-sm">
-      {/* ← Prev */}
       <Link
         href={createPageURL(currentPage - 1)}
         className="rounded border px-3 py-1 hover:bg-muted disabled:opacity-50"
@@ -29,8 +28,6 @@ export default function Pagination({ totalPages }: Props) {
       >
         ← Prev
       </Link>
-
-      {/* Page numbers */}
       {Array.from({ length: totalPages }, (_, i) => {
         const page = i + 1;
         const isActive = currentPage === page;
@@ -49,8 +46,6 @@ export default function Pagination({ totalPages }: Props) {
           </Link>
         );
       })}
-
-      {/* Next → */}
       <Link
         href={createPageURL(currentPage + 1)}
         className="rounded border px-3 py-1 hover:bg-muted disabled:opacity-50"

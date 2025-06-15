@@ -9,6 +9,7 @@ export function LoginForm() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -17,6 +18,7 @@ export function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setIsLoggingIn(true);
       await signInWithEmail(formData.email, formData.password);
       router.push("/blog");
     } catch (error) {
@@ -56,8 +58,38 @@ export function LoginForm() {
             onChange={handleChange}
           />
         </div>
-        <button className="text-md transiton-colors duraton-2000 rounded-md bg-primary py-1 font-semibold text-primary-foreground ease-in-out hover:bg-primary/80">
-          Login
+        <button
+          onClick={handleSubmit}
+          disabled={isLoggingIn}
+          className="mt-4 flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors duration-200 hover:bg-primary/80 disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {isLoggingIn ? (
+            <>
+              <svg
+                className="h-4 w-4 animate-spin text-card-foreground"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                ></path>
+              </svg>
+              Logging In...
+            </>
+          ) : (
+            "Log In"
+          )}
         </button>
       </div>
       <div className="text-center text-sm">

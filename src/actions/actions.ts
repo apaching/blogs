@@ -1,7 +1,7 @@
 "use server";
 
 import postgres from "postgres";
-import { Blog, NewBlog, UpdateBlog } from "@/types/types";
+import { NewBlog, UpdateBlog } from "@/types/types";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 

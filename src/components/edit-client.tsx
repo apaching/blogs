@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { Blog } from "@/types/types";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { updateBlog } from "@/actions/actions";
 
@@ -13,8 +11,6 @@ interface Props {
 
 export default function EditClient({ blog }: Props) {
   const router = useRouter();
-
-  const user = useSelector((state: RootState) => state.auth.user);
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -52,8 +48,6 @@ export default function EditClient({ blog }: Props) {
       router.replace(`/blog/${blog.id}`);
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsEditing(false);
     }
   };
 
@@ -141,7 +135,6 @@ export default function EditClient({ blog }: Props) {
               "Save Changes"
             )}
           </button>
-
           <button
             onClick={() => router.back()}
             className="mt-4 rounded bg-white px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors duration-200 hover:bg-white/80"

@@ -14,8 +14,7 @@ export function SignUpForm() {
     password: "",
     confirmPassword: "",
   });
-
-  const [error, setError] = useState("");
+  const [isSigningUp, setIsSigningUp] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -28,21 +27,16 @@ export function SignUpForm() {
     e.preventDefault();
 
     if (formData.password != formData.confirmPassword) {
-      setError("Passwords do not match!");
       return;
     }
 
-    setError("");
-
     try {
+      setIsSigningUp(true);
       await signUpWithEmail(formData.name, formData.email, formData.password);
-      // localStorage.setItem("signup_email", formData.email);
       router.replace("/login");
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("Something went wrong");
+        console.log(error);
       }
     }
   };
@@ -102,8 +96,38 @@ export function SignUpForm() {
             onChange={handleChange}
           />
         </div>
-        <button className="text-md text-md transiton-colors duraton-2000 rounded-md bg-primary py-1 font-semibold text-primary-foreground ease-in-out hover:bg-primary/80">
-          Create Account
+        <button
+          onClick={handleSubmit}
+          disabled={isSigningUp}
+          className="mt-4 flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors duration-200 hover:bg-primary/80 disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {isSigningUp ? (
+            <>
+              <svg
+                className="h-4 w-4 animate-spin text-card-foreground"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                ></path>
+              </svg>
+              Creating account...
+            </>
+          ) : (
+            "Create account"
+          )}
         </button>
       </div>
       <div className="text-center text-sm">

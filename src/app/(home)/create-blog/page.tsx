@@ -47,8 +47,6 @@ export default function CreateBlog() {
       router.push(`/blog`);
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsCreating(false);
     }
   };
 

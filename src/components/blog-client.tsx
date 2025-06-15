@@ -12,16 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 type Props = {
   userData: User;
   blogData: Blog[];
-  currentPage: number;
   totalPages: number;
 };
 
-export default function BlogClient({
-  userData,
-  blogData,
-  currentPage,
-  totalPages,
-}: Props) {
+export default function BlogClient({ userData, blogData, totalPages }: Props) {
   const dispatch = useDispatch();
 
   const user = useSelector((state: RootState) => state.auth.user);
@@ -35,11 +29,9 @@ export default function BlogClient({
     dispatch(
       setBlogs({
         blogs: blogData,
-        currentPage,
-        totalPages,
       }),
     );
-  }, [dispatch, blogData, currentPage]);
+  }, [dispatch, blogData]);
 
   return (
     <div className="flex flex-col">

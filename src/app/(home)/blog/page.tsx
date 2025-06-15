@@ -37,7 +37,6 @@ export default async function Home(props: {
     <BlogClient
       userData={userData}
       blogData={blogData || []}
-      currentPage={currentPage}
       totalPages={totalPages}
     />
   );

@@ -20,14 +20,16 @@ export default function Pagination({ totalPages }: Props) {
 
   return (
     <div className="mt-8 flex items-center justify-center gap-2 text-sm">
-      <Link
-        href={createPageURL(currentPage - 1)}
-        className="rounded border px-3 py-1 hover:bg-muted disabled:opacity-50"
-        aria-disabled={currentPage <= 1}
-        tabIndex={currentPage <= 1 ? -1 : 0}
-      >
-        ← Prev
-      </Link>
+      {currentPage > 1 && (
+        <Link
+          href={createPageURL(currentPage - 1)}
+          className="rounded border px-3 py-1 hover:bg-muted disabled:opacity-50"
+          aria-disabled={currentPage <= 1}
+          tabIndex={currentPage <= 1 ? -1 : 0}
+        >
+          ← Prev
+        </Link>
+      )}
       {Array.from({ length: totalPages }, (_, i) => {
         const page = i + 1;
         const isActive = currentPage === page;
@@ -46,14 +48,16 @@ export default function Pagination({ totalPages }: Props) {
           </Link>
         );
       })}
-      <Link
-        href={createPageURL(currentPage + 1)}
-        className="rounded border px-3 py-1 hover:bg-muted disabled:opacity-50"
-        aria-disabled={currentPage >= totalPages}
-        tabIndex={currentPage >= totalPages ? -1 : 0}
-      >
-        Next →
-      </Link>
+      {currentPage < totalPages && (
+        <Link
+          href={createPageURL(currentPage + 1)}
+          className="rounded border px-3 py-1 hover:bg-muted disabled:opacity-50"
+          aria-disabled={currentPage >= totalPages}
+          tabIndex={currentPage >= totalPages ? -1 : 0}
+        >
+          Next →
+        </Link>
+      )}
     </div>
   );
 }

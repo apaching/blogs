@@ -27,7 +27,6 @@ export default function BlogClient({
   const user = useSelector((state: RootState) => state.auth.user);
   const { blogs } = useSelector((state: RootState) => state.blogs);
 
-  // Set user + blogs on first render
   useEffect(() => {
     dispatch(login(userData));
   }, [dispatch, userData]);
